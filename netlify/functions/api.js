@@ -30,8 +30,8 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 // Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/certificates', certificateRoutes);
+app.use('/auth', authRoutes);
+app.use('/certificates', certificateRoutes);
 
 // Root route untuk testing
 app.get('/', (req, res) => {
