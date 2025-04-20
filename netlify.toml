@@ -1,6 +1,7 @@
 [build]
-  functions = "netlify/functions"
-
+  command = "npm run build"
+  functions = "lambda"
+  publish = "public"
 [dev]
   functions = "netlify/functions"
 

@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "lambda-build": "netlify-lambda build src/lambda",
+    "build": "npm run lambda-build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server.js",
     "start": "node server.js"
@@ -20,6 +22,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.13.2",
     "multer": "^1.4.5-lts.2",
+    "netlify-lambda": "^2.0.16",
     "puppeteer": "^24.6.1",
     "serverless-http": "^3.2.0",
     "uuid": "^11.1.0"
