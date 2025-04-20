@@ -18,8 +18,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 // Routes
-app.use('/auth', authRoutes);
-app.use('/certificates', certificateRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/certificates', certificateRoutes);
 
 // Default route
 app.get('/', (req, res) => {
