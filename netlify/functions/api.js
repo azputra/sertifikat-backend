@@ -24,10 +24,10 @@ const authRoutes = require('../../routes/authRoutes');
 const certificateRoutes = require('../../routes/certificateRoutes');
 
 // Connect database conditionaly
-const connectDB = require('../../config/db');
-if (process.env.NODE_ENV !== 'test') {
-  connectDB();
-}
+// const connectDB = require('../../config/db');
+// if (process.env.NODE_ENV !== 'test') {
+//   connectDB();
+// }
 
 // Routes
 app.use('/auth', authRoutes);
