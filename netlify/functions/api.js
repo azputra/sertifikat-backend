@@ -38,5 +38,9 @@ app.get('/', (req, res) => {
   res.json({ message: 'API is running...' });
 });
 
+app.post('/direct-login', (req, res) => {
+  res.json({ message: 'Direct login endpoint works!' });
+});
+
 // Export handler
 module.exports.handler = serverless(app);
