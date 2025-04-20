@@ -1,7 +1,7 @@
-exports.handler = async function(event, context) {
-  // Logic API Anda di sini
-  return {
-    statusCode: 200,
-    body: JSON.stringify({ message: "API berfungsi!" })
-  };
-};
+const express = require('express');
+const serverless = require('serverless-http');
+
+// Import aplikasi Express Anda
+const app = require('../../server'); // Sesuaikan path ke file server.js Anda
+
+module.exports.handler = serverless(app);
