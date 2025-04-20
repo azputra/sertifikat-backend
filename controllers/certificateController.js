@@ -5,7 +5,7 @@ const path = require('path');
 const fs = require('fs');
 const handlebars = require('handlebars');
 
-const templateSource = fs.readFileSync(path.join(__dirname, '../templates/certificate.html'), 'utf8');
+const templateSource = fs.readFileSync(path.join(process.cwd(), 'templates/certificate.html'), 'utf8');
 const template = handlebars.compile(templateSource);
 // Create certificate
 const createCertificate = async (req, res) => {
