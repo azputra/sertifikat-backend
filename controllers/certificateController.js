@@ -1,6 +1,7 @@
 const Certificate = require('../models/Certificate');
 const { v4: uuidv4 } = require('uuid');
 const puppeteer = require('puppeteer');
+const chromium = require('@sparticuz/chromium');
 const path = require('path');
 const fs = require('fs');
 const handlebars = require('handlebars');
@@ -447,7 +448,10 @@ const generateCertificatePDF = async (req, res) => {
     
     // Buat PDF dengan Puppeteer
     const browser = await puppeteer.launch({
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath(),
+      headless: true
     });
     
     const page = await browser.newPage();
