@@ -439,7 +439,7 @@ const generateCertificatePDF = async (req, res) => {
     const data = {
       ...certificateData,
       formattedDate: formatDate(certificateData.issueDate),
-      verifyUrl: `${req.protocol}://${req.get('host')}/verify/${barcode}`,
+      verifyUrl: `https://secuone.netlify.app/verify/verify/${barcode}`,
       validityYears: certificateData.validityYears || 2
     };
     
