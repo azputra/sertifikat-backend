@@ -287,17 +287,21 @@ const createCertificate = async (req, res) => {
     // Generate unique barcode
     const barcode = uuidv4();
     
+    // Generate a unique certificate number
+    const certificateNumber = `CERT-${Date.now()}-${Math.floor(1000 + Math.random() * 9000)}`;
+
     const certificate = await Certificate.create({
       programName,
       issueDate: issueDate || Date.now(),
       endUserName,
       endUserId,
-      shipToId: shipToId || endUserId,
+      shipToId,
       address,
       component,
       skuNumber,
       quantity: quantity || 1,
       licenseNumber,
+      certificateNumber, // Add this line
       barcode,
       isValid: true
     });

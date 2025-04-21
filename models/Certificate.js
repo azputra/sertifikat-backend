@@ -52,7 +52,15 @@ const certificateSchema = new mongoose.Schema({
   isValid: {
     type: Boolean,
     default: true
-  }
+  },
+  certificateNumber: {
+    type: String,
+    unique: true,
+    default: function() {
+      return `CERT-${Date.now()}-${Math.floor(1000 + Math.random() * 9000)}`;
+    }
+  },
+
 }, { timestamps: true });
 
 const Certificate = mongoose.model('Certificate', certificateSchema);
