@@ -6,18 +6,23 @@ const path = require('path');
 const fs = require('fs');
 const handlebars = require('handlebars');
 
-// Read the HTML template from the file
-const templatePath = path.join(__dirname, '../templates/certificate.html');
-const templateSource = fs.readFileSync(templatePath, 'utf-8');
-const template = handlebars.compile(templateSource);
-
 // Read logo file and convert to base64
 const logoPath = path.join(__dirname, '../templates/logo-secuone.png');
-const logoBase64 = fs.readFileSync(logoPath, { encoding: 'base64' });
+let logoBase64 = '';
+try {
+  logoBase64 = fs.readFileSync(logoPath, { encoding: 'base64' });
+} catch (error) {
+  console.warn('Warning: Logo file not found:', error.message);
+}
 
-// Read background file and convert to base64
-const bgPath = path.join(__dirname, '../templates/licence-bg.png');
-const bgBase64 = fs.readFileSync(bgPath, { encoding: 'base64' });
+// Read background file and convert to base64 (if exists)
+let bgBase64 = '';
+try {
+  const bgPath = path.join(__dirname, '../templates/licence-bg.png');
+  bgBase64 = fs.readFileSync(bgPath, { encoding: 'base64' });
+} catch (error) {
+  console.warn('Warning: Background file not found:', error.message);
+}
 
 const fileExists = (filePath) => {
   try {
@@ -205,8 +210,9 @@ const generateCertificatePDF = async (req, res) => {
       formattedDate: formatDate(certificateData.issueDate),
       verifyUrl: `https://secuone.netlify.app/verify/${barcode}`,
       validityYears: certificateData.validityYears || 2,
-      logoBase64: logoBase64,  // Add the base64 encoded logo
-      bgBase64: bgBase64       // Add the base64 encoded background
+      logoBase64: logoBase64,
+      bgBase64: bgBase64,
+      hasBgImage: bgBase64 !== ''
     };
     
     // Render HTML dari template
