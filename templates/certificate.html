@@ -21,19 +21,17 @@
       overflow: hidden;
     }
     
-    /* Grid Background */
-    .background-grid {
+    /* Background Image */
+    .background-image {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background-image: 
-        linear-gradient(#dfefd0 1px, transparent 1px),
-        linear-gradient(90deg, #dfefd0 1px, transparent 1px);
-      background-size: 15mm 15mm;
-      opacity: 0.5;
       z-index: 0;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
     
     .container {
@@ -183,7 +181,7 @@
   </style>
 </head>
 <body>
-  <div class="background-grid"></div>
+  <div class="background-image" style="background-image: url('data:image/png;base64,{{bgBase64}}');"></div>
   
   <div class="container">
     <div class="header">
