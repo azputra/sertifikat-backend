@@ -41,7 +41,8 @@ const createCertificate = async (req, res) => {
       address,
       component,
       skuNumber,
-      quantity
+      quantity,
+      isValid
     } = req.body;
     
     // Generate unique license number
@@ -66,7 +67,7 @@ const createCertificate = async (req, res) => {
       licenseNumber,
       certificateNumber,
       barcode,
-      isValid: true
+      isValid
     });
     
     res.status(201).json(certificate);
