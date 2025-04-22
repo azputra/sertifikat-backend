@@ -195,7 +195,6 @@ const generateCertificatePDF = async (req, res) => {
     
     // Debug log for file paths
     console.log('Logo path exists:', fileExists(logoPath));
-    console.log('Background path exists:', fileExists(bgPath));
     
     // Format tanggal
     const formatDate = (dateString) => {
