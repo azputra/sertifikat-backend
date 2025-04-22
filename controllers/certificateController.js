@@ -12,11 +12,13 @@ const templateSource = fs.readFileSync(templatePath, 'utf-8');
 const template = handlebars.compile(templateSource);
 
 // Read logo file and convert to base64
-const logoPath = path.join(__dirname, '../templates/logo-secuone.png');
 let logoBase64 = '';
 try {
+  const logoPath = path.join(__dirname, '../templates/logo-secuone.png');
   logoBase64 = fs.readFileSync(logoPath, { encoding: 'base64' });
 } catch (error) {
+  console.warn('Warning: Logo file not found:', error.message);
+}
 
 // Read background file and convert to base64 (if exists)
 let bgBase64 = '';
@@ -26,14 +28,6 @@ try {
 } catch (error) {
   console.warn('Warning: Background file not found:', error.message);
 }
-
-const fileExists = (filePath) => {
-  try {
-    return fs.existsSync(filePath);
-  } catch (err) {
-    return false;
-  }
-};
 
 // Create certificate
 const createCertificate = async (req, res) => {
@@ -70,7 +64,7 @@ const createCertificate = async (req, res) => {
       skuNumber,
       quantity: quantity || 1,
       licenseNumber,
-      certificateNumber, // Add this line
+      certificateNumber,
       barcode,
       isValid: true
     });
@@ -196,9 +190,6 @@ const generateCertificatePDF = async (req, res) => {
       });
     }
     
-    // Debug log for file paths
-    console.log('Logo path exists:', fileExists(logoPath));
-    
     // Format tanggal
     const formatDate = (dateString) => {
       if (!dateString) return 'N/A';
@@ -214,7 +205,7 @@ const generateCertificatePDF = async (req, res) => {
       validityYears: certificateData.validityYears || 2,
       logoBase64: logoBase64,
       bgBase64: bgBase64,
-      hasBgImage: bgBase64 !== ''
+      useCssGrid: bgBase64 === '' // Use CSS grid if no background image
     };
     
     // Render HTML dari template
@@ -310,7 +301,6 @@ const generateCertificatePDF = async (req, res) => {
     });
   }
 };
-
 
 module.exports = {
   createCertificate,
