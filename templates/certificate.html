@@ -6,7 +6,7 @@
   <title>SECUONE AIOT Certificate</title>
   <style>
     @page {
-      size: A4;
+      size: landscape;
       margin: 0;
     }
     
@@ -15,9 +15,10 @@
       padding: 0;
       font-family: Arial, sans-serif;
       background-color: #f8fff8;
-      width: 210mm;
-      height: 297mm;
+      width: 297mm;
+      height: 210mm;
       position: relative;
+      overflow: hidden;
     }
     
     /* Grid Background */
@@ -43,7 +44,7 @@
       transform: translate(-50%, -50%);
       width: 70%;
       height: 70%;
-      background-image: url('/path/to/secuone-watermark.png');
+      background-image: url('./templates/logo-secuone.png');
       background-size: contain;
       background-position: center;
       background-repeat: no-repeat;
@@ -54,40 +55,72 @@
     .container {
       position: relative;
       z-index: 1;
-      padding: 20mm;
+      padding: 15mm;
+      display: flex;
+      flex-direction: column;
+      height: calc(100% - 30mm);
     }
     
-    .logo {
-      text-align: center;
+    .header {
+      display: flex;
+      align-items: center;
       margin-bottom: 10mm;
     }
     
-    .logo h1 {
-      font-size: 36px;
-      font-weight: bold;
-      margin: 10mm 0;
-      font-family: "Times New Roman", serif;
+    .logo {
+      flex: 0 0 200px;
+    }
+    
+    .logo img {
+      width: 180px;
+      height: auto;
     }
     
     .title {
+      flex: 1;
       text-align: center;
-      margin-bottom: 15mm;
     }
     
     .title h1 {
+      font-size: 28px;
+      font-weight: bold;
+      color: #000000;
+      margin: 0;
+      font-family: "Times New Roman", serif;
+    }
+    
+    .title h2 {
       font-size: 24px;
       font-weight: bold;
       color: #005000;
+      margin: 10px 0 0 0;
+    }
+    
+    .content {
+      display: flex;
+      flex: 1;
+    }
+    
+    .left-section {
+      flex: 1;
+      padding-right: 10mm;
+    }
+    
+    .right-section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
     
     .info-row {
       display: flex;
-      margin-bottom: 8mm;
+      margin-bottom: 5mm;
       font-size: 12px;
     }
     
     .info-row.short {
-      margin-bottom: 4mm;
+      margin-bottom: 3mm;
     }
     
     .label {
@@ -105,9 +138,10 @@
     }
     
     .table {
-      margin-top: 15mm;
-      margin-bottom: 15mm;
+      margin-top: 10mm;
+      margin-bottom: 10mm;
       font-size: 12px;
+      width: 100%;
     }
     
     .table-header {
@@ -157,10 +191,8 @@
     }
     
     .qr-container {
-      position: absolute;
-      bottom: 18mm;
-      right: 20mm;
       text-align: center;
+      margin-top: auto;
     }
     
     .qr-code {
@@ -172,10 +204,6 @@
       font-size: 8px;
       margin-top: 3mm;
     }
-    
-    .qr-url {
-      font-size: 7px;
-    }
   </style>
 </head>
 <body>
@@ -183,75 +211,83 @@
   <div class="watermark"></div>
   
   <div class="container">
-    <div class="logo">
-      <h1>SECUONE</h1>
+    <div class="header">
+      <div class="logo">
+        <img src="./templates/logo-secuone.png" alt="SECUONE Logo">
+      </div>
+      <div class="title">
+        <h1>SECUONE</h1>
+        <h2>AIOT LICENSE CERTIFICATE</h2>
+      </div>
     </div>
     
-    <div class="title">
-      <h1>AIOT LICENSE CERTIFICATE</h1>
-    </div>
-    
-    <div class="info-row short">
-      <div class="label">Progam Name</div>
-      <div class="separator">:</div>
-      <div class="value">{{programName}}</div>
-    </div>
-    
-    <div class="info-row short">
-      <div class="label">Issue Date</div>
-      <div class="separator">:</div>
-      <div class="value">{{formattedDate}}</div>
-    </div>
-    
-    <div class="info-row short">
-      <div class="label">End User Name</div>
-      <div class="separator">:</div>
-      <div class="value">{{endUserName}}</div>
-    </div>
-    
-    <div class="info-row short">
-      <div class="label">End User ID</div>
-      <div class="separator">:</div>
-      <div class="value">{{endUserId}}</div>
-    </div>
-    
-    <div class="info-row short">
-      <div class="label">Ship-to ID</div>
-      <div class="separator">:</div>
-      <div class="value">{{shipToId}}</div>
-    </div>
-    
-    <div class="info-row">
-      <div class="label">Address</div>
-      <div class="separator">:</div>
-      <div class="value">{{address}}</div>
-    </div>
-    
-    <div class="table">
-      <div class="table-header">
-        <div class="table-cell col-description">COMPONENT DESCRIPTION</div>
-        <div class="table-cell col-sku">SKU NUMBER</div>
-        <div class="table-cell col-quantity">QUANTITY</div>
-        <div class="table-cell col-license">License Number</div>
+    <div class="content">
+      <div class="left-section">
+        <div class="info-row short">
+          <div class="label">Progam Name</div>
+          <div class="separator">:</div>
+          <div class="value">{{programName}}</div>
+        </div>
+        
+        <div class="info-row short">
+          <div class="label">Issue Date</div>
+          <div class="separator">:</div>
+          <div class="value">{{formattedDate}}</div>
+        </div>
+        
+        <div class="info-row short">
+          <div class="label">End User Name</div>
+          <div class="separator">:</div>
+          <div class="value">{{endUserName}}</div>
+        </div>
+        
+        <div class="info-row short">
+          <div class="label">End User ID</div>
+          <div class="separator">:</div>
+          <div class="value">{{endUserId}}</div>
+        </div>
+        
+        <div class="info-row short">
+          <div class="label">Ship-to ID</div>
+          <div class="separator">:</div>
+          <div class="value">{{shipToId}}</div>
+        </div>
+        
+        <div class="info-row">
+          <div class="label">Address</div>
+          <div class="separator">:</div>
+          <div class="value">{{address}}</div>
+        </div>
       </div>
       
-      <div class="table-row">
-        <div class="table-cell col-description">{{component}}</div>
-        <div class="table-cell col-sku">{{skuNumber}}</div>
-        <div class="table-cell col-quantity">{{quantity}}</div>
-        <div class="table-cell col-license">{{licenseNumber}}</div>
+      <div class="right-section">
+        <div class="table">
+          <div class="table-header">
+            <div class="table-cell col-description">COMPONENT DESCRIPTION</div>
+            <div class="table-cell col-sku">SKU NUMBER</div>
+            <div class="table-cell col-quantity">QUANTITY</div>
+            <div class="table-cell col-license">License Number</div>
+          </div>
+          
+          <div class="table-row">
+            <div class="table-cell col-description">{{component}}</div>
+            <div class="table-cell col-sku">{{skuNumber}}</div>
+            <div class="table-cell col-quantity">{{quantity}}</div>
+            <div class="table-cell col-license">{{licenseNumber}}</div>
+          </div>
+        </div>
+        
+        <div class="notes">
+          <div class="note-title">Note:</div>
+          <div class="note-item">- OS Version: Cobuntu 1.8.8, Ubuntu 18.8</div>
+          <div class="note-item">- This license is valid for {{validityYears}} years starting from the date of BAST</div>
+        </div>
+        
+        <div class="qr-container">
+          <img class="qr-code" src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data={{verifyUrl}}" alt="QR Code">
+          <div class="qr-text">Scan to verify certificate</div>
+        </div>
       </div>
-    </div>
-    
-    <div class="notes">
-      <div class="note-title">Note:</div>
-      <div class="note-item">- OS Version: Cobuntu 1.8.8, Ubuntu 18.8</div>
-      <div class="note-item">- This license is valid for {{validityYears}} years starting from the date of BAST</div>
-    </div>
-    
-    <div class="qr-container">
-      <img class="qr-code" src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data={{verifyUrl}}" alt="QR Code">
-      <div class="qr-text">Scan to verify certificate</div>
     </div>
   </div>
 </body>
