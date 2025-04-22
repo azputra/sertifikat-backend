@@ -6,14 +6,17 @@ const path = require('path');
 const fs = require('fs');
 const handlebars = require('handlebars');
 
+// Read the HTML template from the file
+const templatePath = path.join(__dirname, '../templates/certificate.html');
+const templateSource = fs.readFileSync(templatePath, 'utf-8');
+const template = handlebars.compile(templateSource);
+
 // Read logo file and convert to base64
 const logoPath = path.join(__dirname, '../templates/logo-secuone.png');
 let logoBase64 = '';
 try {
   logoBase64 = fs.readFileSync(logoPath, { encoding: 'base64' });
 } catch (error) {
-  console.warn('Warning: Logo file not found:', error.message);
-}
 
 // Read background file and convert to base64 (if exists)
 let bgBase64 = '';
