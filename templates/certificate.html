@@ -14,7 +14,7 @@
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
-      background-color: #f8fff8;
+      background-color: #ffffff;
       width: 297mm;
       height: 210mm;
       position: relative;
@@ -36,91 +36,66 @@
       z-index: 0;
     }
     
-    /* Watermark */
-    .watermark {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 70%;
-      height: 70%;
-      background-image: url('./templates/logo-secuone.png');
-      background-size: contain;
-      background-position: center;
-      background-repeat: no-repeat;
-      opacity: 0.1;
-      z-index: 0;
-    }
-    
     .container {
       position: relative;
       z-index: 1;
-      padding: 15mm;
-      display: flex;
-      flex-direction: column;
-      height: calc(100% - 30mm);
+      padding: 20mm;
+      height: calc(100% - 40mm);
     }
     
     .header {
       display: flex;
-      align-items: center;
-      margin-bottom: 10mm;
+      justify-content: space-between;
+      margin-bottom: 20mm;
     }
     
-    .logo {
-      flex: 0 0 200px;
+    .logo-container {
+      width: 150px;
     }
     
-    .logo img {
-      width: 180px;
+    .logo-container img {
+      width: 100%;
       height: auto;
     }
     
-    .title {
-      flex: 1;
+    .title-container {
       text-align: center;
+      flex-grow: 1;
     }
     
-    .title h1 {
+    .title-container h1 {
       font-size: 28px;
-      font-weight: bold;
-      color: #000000;
       margin: 0;
-      font-family: "Times New Roman", serif;
+      color: #000000;
     }
     
-    .title h2 {
+    .title-container h2 {
       font-size: 24px;
-      font-weight: bold;
       color: #005000;
       margin: 10px 0 0 0;
     }
     
     .content {
       display: flex;
-      flex: 1;
     }
     
     .left-section {
-      flex: 1;
+      width: 50%;
       padding-right: 10mm;
     }
     
     .right-section {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      width: 50%;
     }
     
     .info-row {
       display: flex;
-      margin-bottom: 5mm;
+      margin-bottom: 8mm;
       font-size: 12px;
     }
     
     .info-row.short {
-      margin-bottom: 3mm;
+      margin-bottom: 4mm;
     }
     
     .label {
@@ -138,18 +113,17 @@
     }
     
     .table {
-      margin-top: 10mm;
-      margin-bottom: 10mm;
-      font-size: 12px;
       width: 100%;
+      margin-bottom: 20mm;
+      font-size: 12px;
     }
     
     .table-header {
       display: flex;
       font-weight: bold;
       border-bottom: 1px solid #000;
-      padding-bottom: 3mm;
-      margin-bottom: 5mm;
+      padding-bottom: 5mm;
+      margin-bottom: 8mm;
     }
     
     .table-row {
@@ -190,9 +164,11 @@
       margin-bottom: 2mm;
     }
     
-    .qr-container {
+    .footer {
+      position: absolute;
+      bottom: 20mm;
+      right: 20mm;
       text-align: center;
-      margin-top: auto;
     }
     
     .qr-code {
@@ -208,14 +184,13 @@
 </head>
 <body>
   <div class="background-grid"></div>
-  <div class="watermark"></div>
   
   <div class="container">
     <div class="header">
-      <div class="logo">
-        <img src="./templates/logo-secuone.png" alt="SECUONE Logo">
+      <div class="logo-container">
+        <img src="data:image/png;base64,{{logoBase64}}" alt="SECUONE Logo">
       </div>
-      <div class="title">
+      <div class="title-container">
         <h1>SECUONE</h1>
         <h2>AIOT LICENSE CERTIFICATE</h2>
       </div>
@@ -282,12 +257,12 @@
           <div class="note-item">- OS Version: Cobuntu 1.8.8, Ubuntu 18.8</div>
           <div class="note-item">- This license is valid for {{validityYears}} years starting from the date of BAST</div>
         </div>
-        
-        <div class="qr-container">
-          <img class="qr-code" src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data={{verifyUrl}}" alt="QR Code">
-          <div class="qr-text">Scan to verify certificate</div>
-        </div>
       </div>
+    </div>
+    
+    <div class="footer">
+      <img class="qr-code" src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data={{verifyUrl}}" alt="QR Code">
+      <div class="qr-text">Scan to verify certificate</div>
     </div>
   </div>
 </body>

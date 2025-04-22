@@ -11,6 +11,9 @@ const templatePath = path.join(__dirname, '../templates/certificate.html');
 const templateSource = fs.readFileSync(templatePath, 'utf-8');
 const template = handlebars.compile(templateSource);
 
+const logoPath = path.join(__dirname, '../templates/logo-secuone.png');
+const logoBase64 = fs.readFileSync(logoPath, { encoding: 'base64' });
+
 // Create certificate
 const createCertificate = async (req, res) => {
   try {
@@ -184,7 +187,8 @@ const generateCertificatePDF = async (req, res) => {
       ...certificateData,
       formattedDate: formatDate(certificateData.issueDate),
       verifyUrl: `https://secuone.netlify.app/verify/${barcode}`,
-      validityYears: certificateData.validityYears || 2
+      validityYears: certificateData.validityYears || 2,
+      logoBase64: logoBase64  // Add the base64 encoded logo
     };
     
     // Render HTML dari template
@@ -213,10 +217,10 @@ const generateCertificatePDF = async (req, res) => {
       landscape: true,
       printBackground: true,
       margin: {
-        top: '10mm',
-        right: '10mm',
-        bottom: '10mm',
-        left: '10mm'
+        top: '0mm',
+        right: '0mm',
+        bottom: '0mm',
+        left: '0mm'
       },
       pageRanges: '1'
     });
@@ -234,7 +238,8 @@ const generateCertificatePDF = async (req, res) => {
     console.error('Error generating certificate:', error);
     res.status(500).json({
       success: false,
-      message: 'Failed to generate certificate'
+      message: 'Failed to generate certificate',
+      error: error.message
     });
   }
 };
