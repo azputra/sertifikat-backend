@@ -19,6 +19,14 @@ const logoBase64 = fs.readFileSync(logoPath, { encoding: 'base64' });
 const bgPath = path.join(__dirname, '../templates/licence-bg.png');
 const bgBase64 = fs.readFileSync(bgPath, { encoding: 'base64' });
 
+const fileExists = (filePath) => {
+  try {
+    return fs.existsSync(filePath);
+  } catch (err) {
+    return false;
+  }
+};
+
 // Create certificate
 const createCertificate = async (req, res) => {
   try {
@@ -180,6 +188,10 @@ const generateCertificatePDF = async (req, res) => {
       });
     }
     
+    // Debug log for file paths
+    console.log('Logo path exists:', fileExists(logoPath));
+    console.log('Background path exists:', fileExists(bgPath));
+    
     // Format tanggal
     const formatDate = (dateString) => {
       if (!dateString) return 'N/A';
@@ -202,20 +214,60 @@ const generateCertificatePDF = async (req, res) => {
     
     // Buat PDF dengan Puppeteer
     const browser = await puppeteer.launch({
-      args: chromium.args,
+      args: [...chromium.args, '--disable-web-security'],
       defaultViewport: chromium.defaultViewport,
       executablePath: await chromium.executablePath(),
       headless: true
     });
     
     const page = await browser.newPage();
-    await page.setContent(html, { waitUntil: 'networkidle0' });
+    
+    // Required for loading images from data URLs
+    await page.setBypassCSP(true);
+    
+    await page.setContent(html, { 
+      waitUntil: 'networkidle0',
+      timeout: 30000
+    });
     
     // Set ukuran halaman untuk A4 Landscape
     await page.setViewport({
       width: 1754,
       height: 1240,
       deviceScaleFactor: 2
+    });
+    
+    // Ensure images are loaded
+    await page.evaluate(() => {
+      return new Promise((resolve) => {
+        const imgs = document.querySelectorAll('img');
+        if (imgs.length === 0) {
+          return resolve();
+        }
+        
+        let loadedImgs = 0;
+        Array.from(imgs).forEach(img => {
+          if (img.complete) {
+            loadedImgs++;
+            if (loadedImgs === imgs.length) {
+              resolve();
+            }
+          } else {
+            img.addEventListener('load', () => {
+              loadedImgs++;
+              if (loadedImgs === imgs.length) {
+                resolve();
+              }
+            });
+            img.addEventListener('error', () => {
+              loadedImgs++;
+              if (loadedImgs === imgs.length) {
+                resolve();
+              }
+            });
+          }
+        });
+      });
     });
     
     const pdfBuffer = await page.pdf({
@@ -245,7 +297,8 @@ const generateCertificatePDF = async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'Failed to generate certificate',
-      error: error.message
+      error: error.message,
+      stack: error.stack
     });
   }
 };

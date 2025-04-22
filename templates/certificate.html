@@ -29,9 +29,7 @@
       width: 100%;
       height: 100%;
       z-index: 0;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
+      object-fit: cover;
     }
     
     .container {
@@ -43,22 +41,22 @@
     
     .header {
       display: flex;
-      justify-content: space-between;
+      align-items: center;
       margin-bottom: 20mm;
     }
     
     .logo-container {
-      width: 150px;
+      width: 160px;
     }
     
-    .logo-container img {
+    .logo-img {
       width: 100%;
       height: auto;
     }
     
     .title-container {
+      flex: 1;
       text-align: center;
-      flex-grow: 1;
     }
     
     .title-container h1 {
@@ -71,6 +69,7 @@
       font-size: 24px;
       color: #005000;
       margin: 10px 0 0 0;
+      font-weight: bold;
     }
     
     .content {
@@ -78,8 +77,8 @@
     }
     
     .left-section {
-      width: 50%;
-      padding-right: 10mm;
+      width: 45%;
+      padding-right: 5%;
     }
     
     .right-section {
@@ -112,7 +111,7 @@
     
     .table {
       width: 100%;
-      margin-bottom: 20mm;
+      margin-bottom: 15mm;
       font-size: 12px;
     }
     
@@ -162,7 +161,7 @@
       margin-bottom: 2mm;
     }
     
-    .footer {
+    .qr-container {
       position: absolute;
       bottom: 20mm;
       right: 20mm;
@@ -181,12 +180,13 @@
   </style>
 </head>
 <body>
-  <div class="background-image" style="background-image: url('data:image/png;base64,{{bgBase64}}');"></div>
+  <!-- Background image as a regular img tag -->
+  <img class="background-image" src="data:image/png;base64,{{bgBase64}}" alt="Certificate Background">
   
   <div class="container">
     <div class="header">
       <div class="logo-container">
-        <img src="data:image/png;base64,{{logoBase64}}" alt="SECUONE Logo">
+        <img class="logo-img" src="data:image/png;base64,{{logoBase64}}" alt="SECUONE Logo">
       </div>
       <div class="title-container">
         <h1>SECUONE</h1>
@@ -258,7 +258,7 @@
       </div>
     </div>
     
-    <div class="footer">
+    <div class="qr-container">
       <img class="qr-code" src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data={{verifyUrl}}" alt="QR Code">
       <div class="qr-text">Scan to verify certificate</div>
     </div>
