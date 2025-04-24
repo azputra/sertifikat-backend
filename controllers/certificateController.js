@@ -42,11 +42,9 @@ const createCertificate = async (req, res) => {
       component,
       skuNumber,
       quantity,
-      isValid
+      isValid,
+      licenseNumber // Added field
     } = req.body;
-    
-    // Generate unique license number
-    const licenseNumber = `SC-AI${Date.now().toString().slice(-2)}-${Math.floor(10000 + Math.random() * 90000).toString().substring(0, 5)}`;
     
     // Generate unique barcode
     const barcode = uuidv4();
@@ -137,7 +135,8 @@ const updateCertificate = async (req, res) => {
       component,
       skuNumber,
       quantity,
-      isValid
+      isValid,
+      licenseNumber // Added field
     } = req.body;
     
     const certificate = await Certificate.findById(req.params.id);
@@ -153,6 +152,7 @@ const updateCertificate = async (req, res) => {
       certificate.skuNumber = skuNumber || certificate.skuNumber;
       certificate.quantity = quantity || certificate.quantity;
       certificate.isValid = isValid !== undefined ? isValid : certificate.isValid;
+      certificate.licenseNumber = licenseNumber || certificate.licenseNumber;
       
       const updatedCertificate = await certificate.save();
       res.json(updatedCertificate);
@@ -163,6 +163,7 @@ const updateCertificate = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 // Delete certificate
 const deleteCertificate = async (req, res) => {

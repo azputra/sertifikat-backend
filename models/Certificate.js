@@ -41,8 +41,7 @@ const certificateSchema = new mongoose.Schema({
   },
   licenseNumber: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
   barcode: {
     type: String,
