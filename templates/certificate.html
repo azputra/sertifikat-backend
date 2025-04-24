@@ -47,7 +47,7 @@
     }
     
     .logo-container {
-      width: 300px;
+      width: 250px;
     }
 
     .text-center{
@@ -62,10 +62,11 @@
     .title-container {
       flex: 1;
       text-align: center;
+      margin-bottom: 20px;
     }
     
     .title-container h2 {
-      font-size: 48px;
+      font-size: 46px;
       color: #005000;
       margin: 10px 0 0 0;
       font-weight: bold;
@@ -159,8 +160,8 @@
     
     .qr-container {
       position: absolute;
-      bottom: 0mm;
-      right: 30mm;
+      bottom: -25mm;
+      right: 8mm;
       text-align: center;
     }
     
@@ -172,6 +173,17 @@
     .qr-text {
       font-size: 8px;
       margin-top: 3mm;
+    }
+
+    .width-address{
+      max-width: 700px;
+      word-break: break-all;
+    }
+
+    .container-bottom{
+      display: flex;
+      position: relative;
+      justify-content: space-between;
     }
   </style>
 </head>
@@ -218,7 +230,7 @@
         <div class="info-row">
           <div class="label">Address</div>
           <div class="separator">:</div>
-          <div class="value">{{address}}</div>
+          <div class="value width-address">{{address}}</div>
         </div>
       </div>
       
@@ -227,9 +239,9 @@
       <div class="table">
         <div class="table-header">
           <div class="table-cell col-description">COMPONENT DESCRIPTION</div>
-          <div class="table-cell col-sku">SKU NUMBER</div>
-          <div class="table-cell col-quantity">QUANTITY</div>
-          <div class="table-cell col-license">License Number</div>
+          <div class="table-cell col-sku text-center">SKU NUMBER</div>
+          <div class="table-cell col-quantity text-center">QUANTITY</div>
+          <div class="table-cell col-license text-center">License Number</div>
         </div>
         
         <div class="table-row">
@@ -240,17 +252,18 @@
         </div>
       </div>
       
-      <div class="notes">
-        <div class="note-title">Note:</div>
-        <div class="note-item">- OS Version: Cobuntu 1.8.8, Ubuntu 18.8</div>
-        <div class="note-item">- This license is valid for {{validityYears}} years starting from the date of BAST</div>
+      <div class="container-bottom">
+        <div class="notes">
+          <div class="note-title">Note:</div>
+          <div class="note-item">- OS Version: Cobuntu 1.8.8, Ubuntu 18.8</div>
+          <div class="note-item">- This license is valid for {{validityYears}} years starting from the date of BAST</div>
+        </div>
+        <div class="qr-container">
+          <img class="qr-code" src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data={{verifyUrl}}" alt="QR Code">
+        </div>
       </div>
     </div>
     
-    <div class="qr-container">
-      <img class="qr-code" src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data={{verifyUrl}}" alt="QR Code">
-      <div class="qr-text">Scan to verify certificate</div>
-    </div>
   </div>
 </body>
 </html>
