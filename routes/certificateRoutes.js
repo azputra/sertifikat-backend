@@ -18,7 +18,7 @@ router.route('/')
 router.route('/:id')
   .get(protect, getCertificateById)
   .put(protect, admin, updateCertificate)
-  .delete(protect, admin, deleteCertificate);
+  .delete(protect, deleteCertificate);
 
 router.get('/verify/:barcode', verifyCertificate);
 router.post('/generate-pdf', generateCertificatePDF);
