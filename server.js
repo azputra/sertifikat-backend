@@ -19,7 +19,9 @@ app.use(cors({
   origin: [
     'http://localhost:5173', 
     'https://secuone.netlify.app',
-    'https://sertifikat-backend.onrender.com' // Tambahkan ini
+    'https://sertifikat-backend.onrender.com',
+    'http://secuoneindonesia.com',
+    'http://www.secuoneindonesia.com'
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
