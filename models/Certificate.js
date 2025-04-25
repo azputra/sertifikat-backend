@@ -19,8 +19,7 @@ const certificateSchema = new mongoose.Schema({
     required: true
   },
   shipToId: {
-    type: String,
-    required: true
+    type: String
   },
   address: {
     type: String,
