@@ -42,6 +42,10 @@ const certificateSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  notes: {
+    type: String,
+    required: true
+  },
   barcode: {
     type: String,
     required: true,

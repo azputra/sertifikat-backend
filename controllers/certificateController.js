@@ -43,7 +43,8 @@ const createCertificate = async (req, res) => {
       skuNumber,
       quantity,
       isValid,
-      licenseNumber // Added field
+      licenseNumber,
+      notes 
     } = req.body;
     
     // Generate unique barcode
@@ -65,7 +66,8 @@ const createCertificate = async (req, res) => {
       licenseNumber,
       certificateNumber,
       barcode,
-      isValid
+      isValid,
+      notes 
     });
     
     res.status(201).json(certificate);
@@ -136,7 +138,8 @@ const updateCertificate = async (req, res) => {
       skuNumber,
       quantity,
       isValid,
-      licenseNumber // Added field
+      licenseNumber,
+      notes 
     } = req.body;
     
     const certificate = await Certificate.findById(req.params.id);
@@ -153,6 +156,7 @@ const updateCertificate = async (req, res) => {
       certificate.quantity = quantity || certificate.quantity;
       certificate.isValid = isValid !== undefined ? isValid : certificate.isValid;
       certificate.licenseNumber = licenseNumber || certificate.licenseNumber;
+      certificate.notes = notes || certificate.notes;
       
       const updatedCertificate = await certificate.save();
       res.json(updatedCertificate);

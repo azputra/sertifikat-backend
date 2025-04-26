@@ -165,8 +165,10 @@
       margin-bottom: 3mm;
     }
     
-    .note-item {
+    .certificate-notes-content {
       margin-bottom: 2mm;
+      white-space: pre-wrap;
+      font-family: inherit;
     }
     
     .qr-container {
@@ -267,7 +269,7 @@
       <div class="container-bottom">
         <div class="notes">
           <div class="note-title">Note:</div>
-          <div class="note-item">- The license is valid for 2 years after BAST</div>
+          <div class="certificate-notes-content">{{notes || '- The license is valid for 2 years after BAST'}}</div>
         </div>
         <div class="qr-container">
           <img class="qr-code" src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data={{verifyUrl}}" alt="QR Code">
