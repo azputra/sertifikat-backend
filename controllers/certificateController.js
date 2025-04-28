@@ -207,7 +207,7 @@ const generateCertificatePDF = async (req, res) => {
     const data = {
       ...certificateData,
       formattedDate: formatDate(certificateData.issueDate),
-      verifyUrl: `https://secuone.netlify.app/verify/${barcode}`,
+      verifyUrl: `http://www.secuoneindonesia.com/verify/${barcode}`,
       validityYears: certificateData.validityYears || 2,
       logoBase64: logoBase64,
       bgBase64: bgBase64,
