@@ -23,7 +23,7 @@ try {
 // Read background file and convert to base64 (if exists)
 let bgBase64 = '';
 try {
-  const bgPath = path.join(__dirname, '../templates/licence-bg.png');
+  const bgPath = path.join(__dirname, '../templates/lisence-bg.png');
   bgBase64 = fs.readFileSync(bgPath, { encoding: 'base64' });
 } catch (error) {
   console.warn('Warning: Background file not found:', error.message);
@@ -104,6 +104,7 @@ const getCertificateById = async (req, res) => {
 // Verify certificate by barcode
 const verifyCertificate = async (req, res) => {
   try {
+    console.log(req)
     const { barcode } = req.params;
     
     const certificate = await Certificate.findOne({ barcode });
